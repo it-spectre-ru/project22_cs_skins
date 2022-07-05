@@ -6,7 +6,7 @@ ua = UserAgent()
 # print(ua.random)
 
 
-def collect_data(cat_type=2):
+def collect_data(category_type=2):
 
     offset = 0
     batch_size = 60
@@ -16,7 +16,7 @@ def collect_data(cat_type=2):
     while True:
         for item in range(offset, offset + batch_size, 60):
             
-            url = f'https://inventories.cs.money/5.0/load_bots_inventory/730?buyBonus=40&hasTradeLock=false&hasTradeLock=true&isStore=true&limit=60&maxPrice=10000&minPrice=2000&offset={item}&tradeLockDays=1&tradeLockDays=2&tradeLockDays=3&tradeLockDays=4&tradeLockDays=5&tradeLockDays=6&tradeLockDays=7&tradeLockDays=0&type={cat_type}&withStack=true'
+            url = f'https://inventories.cs.money/5.0/load_bots_inventory/730?buyBonus=40&hasTradeLock=false&hasTradeLock=true&isStore=true&limit=60&maxPrice=10000&minPrice=2000&offset={item}&tradeLockDays=1&tradeLockDays=2&tradeLockDays=3&tradeLockDays=4&tradeLockDays=5&tradeLockDays=6&tradeLockDays=7&tradeLockDays=0&type={category_type}&withStack=true'
             response = requests.get(
                 url=url,
                 headers={'user-agent': f'{ua.random}'}
