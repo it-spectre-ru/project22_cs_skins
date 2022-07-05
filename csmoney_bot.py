@@ -1,4 +1,5 @@
 from aiogram import Bot, Dispatcher, executor, types
+from aiogram.dispatcher.filters import Text
 import os
 
 bot = Bot(token=os.getenv('TOKEN'), parse_mode=types.ParseMode.HTML)
@@ -12,6 +13,11 @@ async def start(message: types.Message):
     keyboard.add(*start_buttons)
     
     await message.answer('Выберите категорию', reply_markup=keyboard)
+
+@dp.message_handler(Text(equals='🔪 Ножи'))
+async def get_discount_knives(message: types.Message):
+  await message.answer('Please waiting...')
+
     
 def main():
     executor.start_polling(dp)
