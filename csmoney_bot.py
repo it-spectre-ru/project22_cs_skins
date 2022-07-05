@@ -4,6 +4,7 @@ from aiogram.dispatcher.filters import Text
 from aiogram.utils.markdown import hbold, hlink
 from main import collect_data
 import os
+import time
 
 bot = Bot(token=os.getenv('TOKEN'), parse_mode=types.ParseMode.HTML)
 dp = Dispatcher(bot)
@@ -26,10 +27,15 @@ async def get_discount_knives(message: types.Message):
   with open('result.json') as file:
     data = json.load(file)
 
-  for item in data:
-    card = f'{hlink(item.get("full_name"), item.get("3d"))}\n' \ 
+  for index, item in enumerate(data):
+    card = f'{hlink(item.get("full_name"), item.get("3d"))}\n' \
       f'{hbold("Скидка: ")}{item.get("overprice")}%\n' \
       f'{hbold("Цена: ")}${item.get("item_price")}🔥'
+
+    if index%20 == 0:
+      time.sleep(3)
+    
+    await message.answer(card)
 
 
     
