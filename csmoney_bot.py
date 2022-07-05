@@ -1,5 +1,8 @@
+import json
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Text
+from aiogram.utils.markdown import hbold, hlink
+from main import collect_data
 import os
 
 bot = Bot(token=os.getenv('TOKEN'), parse_mode=types.ParseMode.HTML)
@@ -17,6 +20,17 @@ async def start(message: types.Message):
 @dp.message_handler(Text(equals='🔪 Ножи'))
 async def get_discount_knives(message: types.Message):
   await message.answer('Please waiting...')
+
+  collect_data()
+
+  with open('result.json') as file:
+    data = json.load(file)
+
+  for item in data:
+    card = f'{hlink(item.get("full_name"), item.get("3d"))}\n' \ 
+      f'{hbold("Скидка: ")}{item.get("overprice")}%\n' \
+      f'{hbold("Цена: ")}${item.get("item_price")}🔥'
+
 
     
 def main():
